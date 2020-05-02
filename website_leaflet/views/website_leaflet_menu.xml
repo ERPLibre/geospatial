@@ -1,14 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <data noupdate="0">
 
         <!-- Actions -->
         <record id="website_leaflet_map_feature_action" model="ir.actions.act_window">
             <field name="name">Map Feature</field>
-            <field name="type">ir.actions.act_window</field>
+<!--            <field name="type">ir.actions.act_window</field>-->
             <field name="res_model">website_leaflet.mapfeature</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="view_type">form</field>
+<!--            <field name="view_type">form</field>-->
         </record>
 
 <!--        <record id="helpdesk_ticket_action" model="ir.actions.act_window">-->
@@ -100,8 +99,8 @@
 <!--            groups="group_helpdesk_manager"/>-->
 
         <!-- #TODO -->
-        <!-- <menuitem id="helpdesk_ticket_config_settings_menu" name="Settings"
-            parent="helpdesk_ticket_config_main_menu" action="helpdesk_ticket_config_settings_action" sequence="1"/> -->
+<!--        <menuitem id="helpdesk_ticket_config_settings_menu" name="Settings"-->
+<!--            parent="helpdesk_ticket_config_main_menu" action="helpdesk_ticket_config_settings_action" sequence="1"/>-->
 
 <!--        <menuitem id="helpdesk_ticket_channel_menu" name="Channels" parent="helpdesk_ticket_config_main_menu"-->
 <!--            action="helpdesk_ticket_channel_action" sequence="5"/>-->
@@ -118,5 +117,4 @@
 <!--        <menuitem id="helpdesk_ticket_tag_menu" name="Ticket Tags"-->
 <!--            parent="helpdesk_ticket_config_main_menu" action="helpdesk_ticket_tag_action" sequence="45"/>-->
 
-    </data>
 </odoo>

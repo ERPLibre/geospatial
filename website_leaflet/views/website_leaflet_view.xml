@@ -130,8 +130,8 @@
                 <!--              <field name="priority" widget="priority"/>-->
                 <!--              <field name="assigned_date"/>-->
                 <!--              <progressbar field="activity_state" colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>-->
-                <!--              <templates>-->
-                <!--                  <t t-name="kanban-box">-->
+                              <templates>
+                                  <t t-name="kanban-box">
                 <!--                    <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_content oe_kanban_global_click">-->
                 <!--                        <div class="o_dropdown_kanban dropdown" groups="base.group_user">-->
                 <!--                            <a class="dropdown-toggle btn" role="button" data-toggle="dropdown" href="#">-->
@@ -168,8 +168,8 @@
                 <!--                            </div>-->
                 <!--                          </div>-->
                 <!--                      </div>-->
-                <!--                  </t>-->
-                <!--              </templates>-->
+                                  </t>
+                              </templates>
             </kanban>
         </field>
     </record>
