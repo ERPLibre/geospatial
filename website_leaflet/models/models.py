@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-import base_geoengine
 
 
 class Category(models.Model):
@@ -21,7 +20,8 @@ class MapFeature(models.Model):
 
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
-    geo_point = base_geoengine.fields.GeoPoint()
-    geo_line = base_geoengine.fields.GeoLine()
-    geo_area = base_geoengine.fields.GeoPolygon()
-    category = fields.Many2One(comodel_name='website_leaflet.category', ondelete='restrict')
+    geo_point = fields.GeoPoint()
+    geo_line = fields.GeoLine()
+    geo_area = fields.GeoPolygon()
+    category = fields.Many2One(
+        comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
