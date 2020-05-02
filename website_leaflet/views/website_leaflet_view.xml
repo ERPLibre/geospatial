@@ -1,71 +1,80 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-<record id="website_leaflet_mapfeature_view_form" model="ir.ui.view">
-    <field name="name">website_leaflet.mapfeature.view.form</field>
-    <field name="model">website_leaflet.mapfeature</field>
-    <field name="arch" type="xml">
-        <form string="Map feature">
-            <sheet>
-                <notebook>
-                    <page string="The point">
-                        <field name="geo_point" widget="geo_edit_map"/>
-                    </page>
-                    <page string="attributes">
-                        <field name="name"/>
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-    </field>
-</record>
+    <record id="website_leaflet_mapfeature_view_form" model="ir.ui.view">
+        <field name="name">website_leaflet.mapfeature.view.form</field>
+        <field name="model">website_leaflet.mapfeature</field>
+        <field name="arch" type="xml">
+            <form string="Map feature">
+                <sheet>
+                    <notebook>
+                        <page string="attributes">
+                            <field name="name"/>
+                            <field name="type"/>
+                        </page>
+                        <page string="Point Data">
+                            <field name="geo_point" widget="geo_edit_map"/>
+                        </page>
+                        <page string="Line Data">
+                            <field name="geo_line" widget="geo_edit_map"/>
+                        </page>
+                        <page string="Area Data">
+                            <field name="geo_area" widget="geo_edit_map"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-<record id="website_leaflet_mapfeature_view_tree" model="ir.ui.view">
-    <field name="name">website_leaflet.mapfeature.view.tree</field>
-    <field name="model">website_leaflet.mapfeature</field>
-    <field name="arch" type="xml">
-        <tree>
-            <field name="name"/>
-        </tree>
-    </field>
-</record>
+    <record id="website_leaflet_mapfeature_view_tree" model="ir.ui.view">
+        <field name="name">website_leaflet.mapfeature.view.tree</field>
+        <field name="model">website_leaflet.mapfeature</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
 
-<record id="website_leaflet_mapfeature_view_kanban" model="ir.ui.view">
-    <field name="name">website_leaflet.mapfeature.view.kanban</field>
-    <field name="model">website_leaflet.mapfeature</field>
-    <field name="priority" eval="100"/>
-    <field name="arch" type="xml">
-        <kanban class="o_kanban_mobile" archivable="false">
-            <field name="name"/>
-                <templates>
-                    <t t-name="kanban-box">
-                    </t>
-                </templates>
-        </kanban>
-    </field>
-</record>
+    <record id="website_leaflet_mapfeature_view_kanban" model="ir.ui.view">
+        <field name="name">website_leaflet.mapfeature.view.kanban</field>
+        <field name="model">website_leaflet.mapfeature</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" archivable="false">
+                <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        </t>
+                    </templates>
+            </kanban>
+        </field>
+    </record>
 
-<record id="website_leaflet_mapfeature_action" model="ir.actions.act_window">
-    <field name="name">Map Features</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">website_leaflet.mapfeature</field>
-    <field name="view_mode">tree,form,geoengine</field>
-    <field name="view_type">form</field>
-    <field name="view_id" ref="website_leaflet_mapfeature_view_tree"/>
-</record>
+    <record id="website_leaflet_mapfeature_action" model="ir.actions.act_window">
+        <field name="name">Map Features</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">website_leaflet.mapfeature</field>
+        <field name="view_mode">tree,form,geoengine</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="website_leaflet_mapfeature_view_tree"/>
+    </record>
 
-<menuitem name="Map Feature" id="geoengine_retail_machine_menu" action="website_leaflet_mapfeature_action" parent="geoengine_demo_retail_menu" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
+    <menuitem name="Map Feature" id="geoengine_retail_machine_menu" action="website_leaflet_mapfeature_action" parent="website_leaflet_map_feature_menu" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
 
     <!-- GeoEngine views -->
     <record id="website_leaflet_mapfeature_view0" model="ir.ui.view">
-    <field name="name">Map Feature view</field>
-    <field name="arch" type="xml">
-        <geoengine>
-            <field name="name" select="1"/>
-            <field name="geo_point"/>
-        </geoengine>
-    </field>
-    <field eval="16" name="priority"/>
-    <field name="model">website_leaflet.mapfeature</field>
+        <field name="name">Map Feature view</field>
+        <field name="arch" type="xml">
+            <geoengine>
+                <field name="name" select="1"/>
+                <field name="geo_point"/>
+                <field name="geo_line"/>
+                <field name="geo_area"/>
+            </geoengine>
+        </field>
+        <field eval="16" name="priority"/>
+        <field name="model">website_leaflet.mapfeature</field>
     </record>
     <record id="geoengine_vector_layer_mapfeaturebasicpoint0" model="geoengine.vector.layer">
         <field name="geo_field_id" ref="field_website_leaflet_mapfeature__geo_point"/>
@@ -76,17 +85,35 @@
         <field eval="1" name="nb_class"/>
         <field name="begin_color">#FF680A</field>
     </record>
-        <record id="geoengine_raster_layer_mapfeatureosm" model="geoengine.raster.layer">
-    <field name="raster_type">osm</field>
-    <field name="name">Map Feature Open Street Map</field>
-    <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
-    <field eval="0" name="overlay"/>
+    <record id="geoengine_vector_layer_mapfeaturebasicline0" model="geoengine.vector.layer">
+        <field name="geo_field_id" ref="field_website_leaflet_mapfeature__geo_line"/>
+        <field name="name">Map Feature Basic Line</field>
+        <field eval="6" name="sequence"/>
+        <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
+        <field name="geo_repr">basic</field>
+        <field eval="1" name="nb_class"/>
+        <field name="begin_color">#FF680A</field>
     </record>
-    <record id="geoengine_raster_layer_basic0" model="geoengine.raster.layer">
-    <field name="raster_type">d_wms</field>
-    <field name="name">basic</field>
-    <field name="url">vmap0.tiles.osgeo.org/wms/vmap0</field>
-    <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
-    <field eval="1" name="overlay"/>
+    <record id="geoengine_vector_layer_mapfeaturebasicarea0" model="geoengine.vector.layer">
+        <field name="geo_field_id" ref="field_website_leaflet_mapfeature__geo_area"/>
+        <field name="name">Map Feature Basic Line</field>
+        <field eval="6" name="sequence"/>
+        <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
+        <field name="geo_repr">basic</field>
+        <field eval="1" name="nb_class"/>
+        <field name="begin_color">#FF680A</field>
+    </record>
+    <record id="geoengine_raster_layer_mapfeatureosm" model="geoengine.raster.layer">
+        <field name="raster_type">osm</field>
+        <field name="name">Map Feature Open Street Map</field>
+        <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
+        <field eval="0" name="overlay"/>
+    </record>
+        <record id="geoengine_raster_layer_basic0" model="geoengine.raster.layer">
+        <field name="raster_type">d_wms</field>
+        <field name="name">basic</field>
+        <field name="url">vmap0.tiles.osgeo.org/wms/vmap0</field>
+        <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
+        <field eval="1" name="overlay"/>
     </record>
 </odoo>
