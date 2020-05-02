@@ -5,6 +5,7 @@ from odoo import models, fields, api
 
 class Category(models.Model):
     _name = 'website_leaflet.category'
+    _description = 'Map Feature Category'
 
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
@@ -17,6 +18,7 @@ class Category(models.Model):
 
 class MapFeature(models.Model):
     _name = 'website_leaflet.mapfeature'
+    _description = 'Map Feature'
 
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
