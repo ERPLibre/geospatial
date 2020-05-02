@@ -10,7 +10,10 @@
     'category': 'Extra Tools',
 
     # any module necessary for this one to work correctly
-    'depends': ['website', 'base_goengine'],
+    'depends': [
+        'website',
+        'base_geoengine'
+    ],
 
     # always loaded
     'data': [

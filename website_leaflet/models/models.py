@@ -12,7 +12,7 @@ class Category(models.Model):
         'res.company',
         string="Company",
     )
-    parent = fields.Many2One(comodel_name='website_leaflet.category', ondelete='restrict')
+    parent = fields.Many2one(comodel_name='website_leaflet.category', ondelete='restrict')
 
 
 class MapFeature(models.Model):
@@ -23,5 +23,5 @@ class MapFeature(models.Model):
     geo_point = fields.GeoPoint()
     geo_line = fields.GeoLine()
     geo_area = fields.GeoPolygon()
-    category = fields.Many2One(
+    category = fields.Many2one(
         comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
