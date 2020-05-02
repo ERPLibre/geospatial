@@ -20,6 +20,7 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/website_leaflet_menu.xml',
+        'views/website_leaflet_snippet_templates.xml',
         'views/website_leaflet_view.xml',
     ],
     'installable': True,
