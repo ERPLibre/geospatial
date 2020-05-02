@@ -8,11 +8,18 @@
     'author': 'SantéLibre',
     'license': 'AGPL-3',
     'category': 'Extra Tools',
-    'depends': [
-        'website',
-    ],
+
+    # any module necessary for this one to work correctly
+    'depends': ['website', 'base_goengine'],
+
+    # always loaded
     'data': [
     ],
     'installable': True,
     'application': True,
+
+    # only loaded in demonstration mode
+    'demo': [
+        'demo/demo.xml',
+    ],
 }
