@@ -77,6 +77,8 @@
 <!--        </record> &ndash;&gt;-->
 
         <!-- Menus -->
+        <menuitem name="GeoEngine Demo" id="geoengine_demo_menu" groups="base_geoengine.group_geoengine_user" web_icon="website_leaflet,static/description/icon.png"/>
+        <menuitem name="GeoEngine Samples" id="geoengine_demo_retail_menu" parent="geoengine_demo_menu" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
         <menuitem id="website_leaflet_main_menu" name="Leaflet" sequence="17"
             web_icon="website_leaflet,static/description/icon.png"/>
 <!--            web_icon="website_leaflet,static/description/icon.png" groups="group_helpdesk_user_own"/>-->
