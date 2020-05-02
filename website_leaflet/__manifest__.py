@@ -18,6 +18,9 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'views/views.xml',
+        'views/website_leaflet_menu.xml',
+        'views/website_leaflet_view.xml',
     ],
     'installable': True,
     'application': True,

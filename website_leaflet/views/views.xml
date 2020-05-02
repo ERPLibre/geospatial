@@ -41,9 +41,7 @@
     -->
 
     <!-- Top menu item -->
-    <!--
-    <menuitem name="website_leaflet" id="website_leaflet.menu_root"/>
-    -->
+<!--    <menuitem name="website_leaflet" id="website_leaflet.menu_root"/>-->
     <!-- menu categories -->
     <!--
     <menuitem name="Menu 1" id="website_leaflet.menu_1" parent="website_leaflet.menu_root"/>
