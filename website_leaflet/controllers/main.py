@@ -28,17 +28,185 @@ class MapFeatureController(http.Controller):
         # lng = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lng")
         # enable = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_enable")
         # size = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_size")
+        name = "test"
         lat = 45.587134
         lng = -73.733368
         enable = True
-        size_width = 1000
-        size_height = 800
+        size_width = 800
+        size_height = 600
         zoom = 13
+        # provider list comes from files leaflet-providers
+        provider = "CartoDB"
+        # provider = "OpenStreetMap"
+        features = {
+            "markers":
+                [
+                    {
+                        "category_id": 3,
+                        "coordinates": [
+                            45.58945757862049,
+                            -73.7531526184082
+                        ],
+                        "html_popup": "<b>Hello world!</b><br>I am a popup.",
+                        "open_popup": True,
+                    },
+                    {
+                        "category_id": 2,
+                        "coordinates": [
+                            45.58965957862049,
+                            -73.7541526184082
+                        ],
+                        "html_popup": "<b>Hello people!</b><br>I am a nice popup.",
+                        "open_popup": False,
+                    }
+                ]
+        }
+        geojson = """
+        {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "marker-color": "#FF0000",
+                        "marker-size": "medium",
+                        "marker-symbol": "circle",
+                        "popup": "<a href=\\\"https://www.glitter-graphics.com\\\" style=\\\"text-decoration: none\\\"><font color=#ff0000>T</font><font color=#f1280d>o</font><font color=#e44f1a>u</font><font color=#d67428>t</font><font color=#c99635>e</font><font color=#bbb543>s</font> <font color=#a1e35d>l</font><font color=#93f36b>e</font><font color=#86fc78>s</font> <font color=#6bfb93>c</font><font color=#5df1a1>o</font><font color=#50e1ae>u</font><font color=#43ccbb>l</font><font color=#35b2c9>e</font><font color=#2893d6>u</font><font color=#1a70e4>r</font><font color=#0d4bf1>s</font></a>"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -73.739119,
+                            45.590738
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "Coors Field",
+                        "amenity": "Baseball Stadium",
+                        "popupContent": "This is where the Rockies play!"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -73.7537526184082,
+                        45.57945957862049
+                            ]
+                    }
+                },
+                {
+                    "type": "Feature",
+    "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [
+                                    -73.7702751159668,
+                                    45.58220847715823
+                                ],
+                                [
+                                    -73.76821517944336,
+                                    45.574759101436825
+                                ],
+                                [
+                                    -73.75276565551758,
+                                    45.57367765830111
+                                ],
+                                [
+                                    -73.74950408935545,
+                                    45.57992570897905
+                                ],
+                                [
+                                    -73.7563705444336,
+                                    45.58485156646601
+                                ],
+                                [
+                                    -73.7702751159668,
+                                    45.58220847715823
+                                ]
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [
+                                    -73.72821807861328,
+                                    45.58845557862049
+                                ],
+                                [
+                                    -73.71345520019531,
+                                    45.58845557862049
+                                ],
+                                [
+                                    -73.71345520019531,
+                                    45.6095944559168
+                                ],
+                                [
+                                    -73.72821807861328,
+                                    45.6095944559168
+                                ],
+                                [
+                                    -73.72821807861328,
+                                    45.58845557862049
+                                ]
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [
+                                -73.73233795166016,
+                                45.58028615223038
+                            ],
+                            [
+                                -73.7343978881836,
+                                45.586173064456226
+                            ],
+                            [
+                                -73.73079299926758,
+                                45.587494531337384
+                            ]
+                        ]
+                    }
+                }
+            ]
+        }
+        """
         return json.dumps({
+            "name": name,
             "lat": lat,
             "lng": lng,
             "enable": enable,
             "size_width": size_width,
             "size_height": size_height,
             "zoom": zoom,
+            "provider": provider,
+            "features": features,
+            "geojson": geojson,
         })
