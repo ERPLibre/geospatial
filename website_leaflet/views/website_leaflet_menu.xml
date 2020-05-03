@@ -9,7 +9,7 @@
             <field name="res_model">website_leaflet.mapfeature</field>
             <field name="view_mode">kanban,tree,form,geoengine</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="website_leaflet_mapfeature_view_tree"/>
+<!--            <field name="view_id" ref="website_leaflet_mapfeature_view_form"/>-->
         </record>
 
         <record id="website_leaflet_map_action" model="ir.actions.act_window">
@@ -18,7 +18,7 @@
             <field name="res_model">website_leaflet.map</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="website_leaflet_map_view_tree"/>
+<!--            <field name="view_id" ref="website_leaflet_map_view_form"/>-->
         </record>
 
         <record id="website_leaflet_category_action" model="ir.actions.act_window">
@@ -27,7 +27,7 @@
             <field name="res_model">website_leaflet.category</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="website_leaflet_category_view_tree"/>
+<!--            <field name="view_id" ref="website_leaflet_category_view_form"/>-->
         </record>
 
         <!-- Menus -->

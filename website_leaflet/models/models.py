@@ -13,7 +13,8 @@ class Category(models.Model):
         'res.company',
         string="Company",
     )
-    parent = fields.Many2one(comodel_name='website_leaflet.category', ondelete='restrict')
+    parent = fields.Many2one(comodel_name='website_leaflet.category',
+                             ondelete='restrict')
 
 
 class Map(models.Model):
@@ -28,9 +29,10 @@ class Map(models.Model):
         string="Company",
     )
     category = fields.Many2one(
-        comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
+        comodel_name='website_leaflet.category', string="Category", ondelete='restrict')
     features = fields.Many2many(
-        comodel_name='website_leaflet.mapfeature', relation='map_features_rel', string="Features")
+        comodel_name='website_leaflet.mapfeature', relation='map_features_rel',
+        string="Features")
 
 
 class MapFeature(models.Model):
@@ -40,11 +42,13 @@ class MapFeature(models.Model):
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
     type = fields.Selection(
-        selection=[("point", _("Point")), ("line", _("Line")), ("poly", _("Polygon"))], required=True, default="point")
+        selection=[("point", _("Point")), ("line", _("Line")), ("poly", _("Polygon"))],
+        required=True, default="point")
     geo_point = fields.GeoPoint()
     geo_line = fields.GeoLine()
     geo_area = fields.GeoPolygon()
     category = fields.Many2one(
-        comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
+        comodel_name='website_leaflet.category', string="Category", ondelete='restrict')
     maps = fields.Many2many(
-        comodel_name='website_leaflet.map', relation='map_features_rel', string="Features")
+        comodel_name='website_leaflet.map', relation='map_features_rel',
+        string="Features")
