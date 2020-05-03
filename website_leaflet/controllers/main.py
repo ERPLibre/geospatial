@@ -28,13 +28,17 @@ class MapFeatureController(http.Controller):
         # lng = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lng")
         # enable = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_enable")
         # size = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_size")
-        lat = 55.505
-        lng = 38.6611378
+        lat = 45.587134
+        lng = -73.733368
         enable = True
-        size = 230
+        size_width = 1000
+        size_height = 800
+        zoom = 13
         return json.dumps({
             "lat": lat,
             "lng": lng,
             "enable": enable,
-            "size": size,
+            "size_width": size_width,
+            "size_height": size_height,
+            "zoom": zoom,
         })

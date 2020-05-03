@@ -2,31 +2,45 @@ odoo.define('website_leaflet.animation', function (require) {
     'use strict';
 
     require('web.dom_ready');
-  //var rpc = require('web.rpc');
-  var lat = 55.505,
-      lng = 38.6611378,
-      enable = false,
-      size = 230;
+    //var rpc = require('web.rpc');
+    var lat = 55.505,
+        lng = 38.6611378,
+        enable = false,
+        size_width = 500,
+        size_height = 300,
+        zoom = 13;
 
-  $.get( "/map/config", function( data ) {
-      var data_json = JSON.parse(data);
-      lat = data_json['lat'];
-      lng = data_json['lng'];
-      enable = data_json['enable'];
-      size = data_json['size'];
+    $.get("/map/config", function (data) {
+        var data_json = JSON.parse(data);
+        lat = data_json['lat'];
+        lng = data_json['lng'];
+        enable = data_json['enable'];
+        size_width = data_json['size_width'];
+        size_height = data_json['size_height'];
+        zoom = data_json['zoom'];
 
-      if (enable && $('#mapid').length){
-          var point = new L.LatLng(lat, lng);
-          var mymap = L.map('mapid').setView(point, 13);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-          }).addTo(mymap);
-          $('#mapid').css('width',size);
-          $('#mapid').css('height',size);
-          // hide google icon
-          $('.img-fluid').hide();
-      }
-  });
+        if (enable && $('#mapid').length) {
+            $('#mapid').width(size_width);
+            // $('#mapid').css('width', size_width);
+            $('#mapid').height(size_height);
+            // $('#mapid').css('height', size_height)
+            // hide google icon
+            // $('.img-fluid').hide();
+            var point = new L.LatLng(lat, lng);
+            var map = L.map('mapid').setView(point, zoom);
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            // L.tileLayer('https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            // L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
+            // L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+            // L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
+            // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+
+            // L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
+            //     attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+            // }).addTo(mymap);
+            L.tileLayer.provider('CartoDB.Voyager').addTo(map);
+        }
+    });
 
 
     // var core = require('web.core');
@@ -208,7 +222,7 @@ odoo.define('website_leaflet.animation', function (require) {
         _onChangeDonQuantity: function (ev) {
             var $input = $(ev.target);
             var value = parseFloat($input.val() || 0, 10);
-            if (isNaN(value)){
+            if (isNaN(value)) {
                 value = 0;
             }
             var $text = $input.parent().next().find("font");
