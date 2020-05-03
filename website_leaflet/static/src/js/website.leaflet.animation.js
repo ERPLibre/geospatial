@@ -67,6 +67,32 @@ odoo.define('website_leaflet.animation', function (require) {
                         }
                     }
                 }
+                if (features.lines) {
+                    let lines = features.lines;
+                    for (let line of lines) {
+                        console.info(line);
+                        var obj = L.polyline(line.coordinates).addTo(map);
+                        if (line.html_popup) {
+                            let obj_popup = obj.bindPopup(line.html_popup);
+                            if (line.open_popup) {
+                                obj_popup.openPopup();
+                            }
+                        }
+                    }
+                }
+                if (features.areas) {
+                    let areas = features.areas;
+                    for (let area of areas) {
+                        console.info(area);
+                        var obj = L.polygon(area.coordinates).addTo(map);
+                        if (area.html_popup) {
+                            let obj_popup = obj.bindPopup(area.html_popup);
+                            if (area.open_popup) {
+                                obj_popup.openPopup();
+                            }
+                        }
+                    }
+                }
             }
             var popup = L.popup();
 

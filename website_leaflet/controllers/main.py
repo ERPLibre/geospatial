@@ -2,7 +2,7 @@ from odoo import http
 from operator import attrgetter
 import json
 import numpy
-from pyproj import Proj, transform
+from pyproj import Transformer
 
 
 class MapFeatureController(http.Controller):
@@ -316,21 +316,41 @@ class MapFeatureController(http.Controller):
                 "description": i.description,
             }
         features = {
-            "markers": []
+            "markers": [],
+            "lines": [],
+            "areas": [],
         }
+        transformer = Transformer.from_crs("epsg:3857", "epsg:4326")
 
-        inProj = Proj('epsg:3857')
-        outProj = Proj('epsg:4326')
+        for feature in obj.features.search([["active", "=", True]]):
+            if feature.type == "point":
+                coord_UTM = numpy.column_stack(feature.geo_point.xy).tolist()[0]
+                coord_lat_long = transformer.transform(*coord_UTM)
+                features["markers"].append({
+                    "category_id": feature.category.id,
+                    "coordinates": coord_lat_long,
+                    "html_popup": feature.html_text,
+                    "open_popup": feature.open_popup,
+                })
+            elif feature.type == "line":
+                coord_UTM = numpy.column_stack(feature.geo_line.xy).tolist()
+                coord_lat_long = [transformer.transform(*i) for i in coord_UTM]
+                features["lines"].append({
+                    "category_id": feature.category.id,
+                    "coordinates": coord_lat_long,
+                    "html_popup": feature.html_text,
+                    "open_popup": feature.open_popup,
+                })
+            elif feature.type == "area":
+                coord_UTM = numpy.column_stack(feature.geo_area.exterior.coords.xy).tolist()
+                coord_lat_long = [transformer.transform(*i) for i in coord_UTM]
+                features["areas"].append({
+                    "category_id": feature.category.id,
+                    "coordinates": coord_lat_long,
+                    "html_popup": feature.html_text,
+                    "open_popup": feature.open_popup,
+                })
 
-        for feature in obj.features.search([["type", "=", "point"], ["active", "=", True]]):
-            coord_UTM = numpy.column_stack(feature.geo_point.xy).tolist()[0]
-            coord_lat_long = transform(inProj, outProj, *coord_UTM)
-            features["markers"].append({
-                "category_id": feature.category.id,
-                "coordinates": coord_lat_long,
-                "html_popup": feature.html_text,
-                "open_popup": feature.open_popup,
-            })
         return json.dumps({
             "name": name,
             "lat": lat,

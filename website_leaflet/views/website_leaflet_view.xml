@@ -24,7 +24,7 @@
                         <page string="Line Data" attrs="{'invisible': [('type', '!=', 'line')]}">
                             <field name="geo_line" widget="geo_edit_map"/>
                         </page>
-                        <page string="Area Data" attrs="{'invisible': [('type', '!=', 'poly')]}">
+                        <page string="Area Data" attrs="{'invisible': [('type', '!=', 'area')]}">
                             <field name="geo_area" widget="geo_edit_map"/>
                         </page>
                     </notebook>
