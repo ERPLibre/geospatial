@@ -42,7 +42,7 @@ class MapFeature(models.Model):
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
     type = fields.Selection(
-        selection=[("point", _("Point")), ("line", _("Line")), ("poly", _("Polygon"))],
+        selection=[("point", _("Point")), ("line", _("Line")), ("area", _("Polygon"))],
         required=True, default="point")
     geo_point = fields.GeoPoint()
     geo_line = fields.GeoLine()
