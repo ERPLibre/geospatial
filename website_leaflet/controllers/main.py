@@ -297,9 +297,9 @@ class MapFeatureController(http.Controller):
         })
 
 
-    @http.route(['/map/config/<model("website_leaflet.map"):obj>/'], type='http', auth="user", website=True,
+    @http.route(['/map/detail/<model("website_leaflet.map"):obj>/'], type='http', auth="user", website=True,
                 methods=['POST', 'GET'], csrf=False)
-    def map_config(self, obj=None):
+    def map_detail(self, obj=None):
         # lat = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lat")
         # lng = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lng")
         # enable = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_enable")
