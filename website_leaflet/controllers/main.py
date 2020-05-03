@@ -36,10 +36,27 @@ class MapFeatureController(http.Controller):
         enable = True
         size_width = 800
         size_height = 600
-        zoom = 13
         # provider list comes from files leaflet-providers
+        # lire le fichier javascript et extraire le json pour obtenir tous les provider
+        #
         provider = "CartoDB"
+        # Zoom maximal est dans l'information du provider. Permet range de 1 à max
+        zoom = 13
         # provider = "OpenStreetMap"
+        categories = {
+            3: {
+                "name": "ok3",
+                "description": "une description 3"
+            },
+            2: {
+                "name": "ok2",
+                "description": "une description 2"
+            },
+            4: {
+                "name": "ok4",
+                "description": "une description 4"
+            },
+        }
         features = {
             "markers":
                 [
@@ -60,6 +77,70 @@ class MapFeatureController(http.Controller):
                         ],
                         "html_popup": "<b>Hello people!</b><br>I am a nice popup.",
                         "open_popup": False,
+                    },
+                    {
+                        "category_id": 2,
+                        "coordinates": [
+                            45.58065957862049,
+                            -73.7591526184082
+                        ],
+                        "html_popup": """
+                        <p>Hôpital au nom moyennement long</p><br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_green_text">DISPO. 300</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_yellow_text">Restant 123</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_red_text">&amp; 36 Besoin 3023600</div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_green_text">DISPO. 12</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_red_text">&lt; 6778 Besoin 40</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="leaflet_card_container">
+                                  <img src="/website_leaflet/static/src/images/img_avatar.png" alt="Avatar" class="leaflet_card_image" style="width:60px">
+                                  <div class="leaflet_card_middle">
+                                    <div class="leaflet_card_text">En attente</div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        """,
+                        "open_popup": False,
                     }
                 ]
         }
@@ -73,6 +154,7 @@ class MapFeatureController(http.Controller):
                         "marker-color": "#FF0000",
                         "marker-size": "medium",
                         "marker-symbol": "circle",
+                        "category_id": 4,
                         "popup": "<a href=\\\"https://www.glitter-graphics.com\\\" style=\\\"text-decoration: none\\\"><font color=#ff0000>T</font><font color=#f1280d>o</font><font color=#e44f1a>u</font><font color=#d67428>t</font><font color=#c99635>e</font><font color=#bbb543>s</font> <font color=#a1e35d>l</font><font color=#93f36b>e</font><font color=#86fc78>s</font> <font color=#6bfb93>c</font><font color=#5df1a1>o</font><font color=#50e1ae>u</font><font color=#43ccbb>l</font><font color=#35b2c9>e</font><font color=#2893d6>u</font><font color=#1a70e4>r</font><font color=#0d4bf1>s</font></a>"
                     },
                     "geometry": {
@@ -210,6 +292,7 @@ class MapFeatureController(http.Controller):
             "zoom": zoom,
             "provider": provider,
             "features": features,
+            "categories": categories,
             "geojson": geojson,
         })
 
