@@ -2,119 +2,46 @@
 <odoo>
 
         <!-- Actions -->
-        <record id="website_leaflet_map_feature_action" model="ir.actions.act_window">
-            <field name="name">Map Feature</field>
-<!--            <field name="type">ir.actions.act_window</field>-->
+
+        <record id="website_leaflet_mapfeature_action" model="ir.actions.act_window">
+            <field name="name">Map Features</field>
+            <field name="type">ir.actions.act_window</field>
             <field name="res_model">website_leaflet.mapfeature</field>
-            <field name="view_mode">kanban,tree,form</field>
-<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">kanban,tree,form,geoengine</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="website_leaflet_mapfeature_view_tree"/>
         </record>
 
-<!--        <record id="helpdesk_ticket_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Tickets</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket</field>-->
-<!--            <field name="view_mode">tree,kanban,form,pivot</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
+        <record id="website_leaflet_map_action" model="ir.actions.act_window">
+            <field name="name">Maps</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website_leaflet.map</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="website_leaflet_map_view_tree"/>
+        </record>
 
-<!--        <record id="helpdesk_ticket_reporting_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Reporting</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket</field>-->
-<!--            <field name="view_mode">pivot,graph</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        <record id="helpdesk_ticket_channel_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Channels</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket.channel</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        <record id="helpdesk_ticket_category_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Categories</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket.category</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        <record id="helpdesk_ticket_team_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Teams</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket.team</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        <record id="helpdesk_ticket_stage_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Stages</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket.stage</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        <record id="helpdesk_ticket_tag_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Ticket Tags</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">helpdesk.ticket.tag</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--        </record>-->
-
-<!--        &lt;!&ndash; #TODO &ndash;&gt;-->
-<!--        &lt;!&ndash; <record id="helpdesk_ticket_config_settings_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Configure Helpdesk</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">res.config.settings</field>-->
-<!--            <field name="view_mode">form</field>-->
-<!--            <field name="target">inline</field>-->
-<!--            <field name="context">{'module' : 'helpdesk'}</field>-->
-<!--        </record> &ndash;&gt;-->
+        <record id="website_leaflet_category_action" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website_leaflet.category</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="website_leaflet_category_view_tree"/>
+        </record>
 
         <!-- Menus -->
         <menuitem id="website_leaflet_main_menu" name="Leaflet" sequence="17"
             web_icon="website_leaflet,static/description/icon.png"/>
-<!--            web_icon="website_leaflet,static/description/icon.png" groups="group_helpdesk_user_own"/>-->
+
+        <menuitem id="geoengine_category_menu" name="Categories" parent="website_leaflet_main_menu"
+            action="website_leaflet_category_action" sequence="1"/>
 
         <menuitem id="website_leaflet_map_feature_menu" name="MapFeature"
-            parent="website_leaflet_main_menu" action="website_leaflet_map_feature_action" sequence="1" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
+            parent="website_leaflet_main_menu" action="website_leaflet_mapfeature_action"
+            sequence="2" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
 
-<!--        <menuitem id="helpdesk_ticket_menu" name="Tickets"-->
-<!--            parent="helpdesk_ticket_main_menu" action="helpdesk_ticket_action" sequence="10"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_reporting_menu" name="Reporting"-->
-<!--            parent="helpdesk_ticket_main_menu" sequence="25"-->
-<!--            groups="group_helpdesk_manager"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_reporting_analysis" name="Tickets" parent="helpdesk_ticket_reporting_menu"-->
-<!--            action="helpdesk_ticket_reporting_action" sequence="5"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_config_main_menu" name="Configuration"-->
-<!--            parent="helpdesk_ticket_main_menu" sequence="35"-->
-<!--            groups="group_helpdesk_manager"/>-->
-
-        <!-- #TODO -->
-<!--        <menuitem id="helpdesk_ticket_config_settings_menu" name="Settings"-->
-<!--            parent="helpdesk_ticket_config_main_menu" action="helpdesk_ticket_config_settings_action" sequence="1"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_channel_menu" name="Channels" parent="helpdesk_ticket_config_main_menu"-->
-<!--            action="helpdesk_ticket_channel_action" sequence="5"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_category_menu" name="Categories" parent="helpdesk_ticket_config_main_menu"-->
-<!--            action="helpdesk_ticket_category_action" sequence="15"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_stage_menu" name="Stages" parent="helpdesk_ticket_config_main_menu"-->
-<!--         action="helpdesk_ticket_stage_action" sequence="25"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_team_menu" name="Teams" parent="helpdesk_ticket_config_main_menu"-->
-<!--            action="helpdesk_ticket_team_action" sequence="35"/>-->
-
-<!--        <menuitem id="helpdesk_ticket_tag_menu" name="Ticket Tags"-->
-<!--            parent="helpdesk_ticket_config_main_menu" action="helpdesk_ticket_tag_action" sequence="45"/>-->
+        <menuitem id="geoengine_map_menu" name="Maps" parent="website_leaflet_main_menu"
+            action="website_leaflet_map_action" sequence="3"/>
 
 </odoo>

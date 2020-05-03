@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
+
+    <!-- Map Feature Views -->
     <record id="website_leaflet_mapfeature_view_form" model="ir.ui.view">
         <field name="name">website_leaflet.mapfeature.view.form</field>
         <field name="model">website_leaflet.mapfeature</field>
@@ -10,14 +12,16 @@
                         <page string="attributes">
                             <field name="name"/>
                             <field name="type"/>
+                            <field name="active"/>
+                            <field name="maps"/>
                         </page>
-                        <page string="Point Data">
+                        <page string="Point Data" attrs="{'invisible': [('type', '!=', 'point')]}">
                             <field name="geo_point" widget="geo_edit_map"/>
                         </page>
-                        <page string="Line Data">
+                        <page string="Line Data" attrs="{'invisible': [('type', '!=', 'line')]}">
                             <field name="geo_line" widget="geo_edit_map"/>
                         </page>
-                        <page string="Area Data">
+                        <page string="Area Data" attrs="{'invisible': [('type', '!=', 'poly')]}">
                             <field name="geo_area" widget="geo_edit_map"/>
                         </page>
                     </notebook>
@@ -32,6 +36,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="active"/>
+                <field name="maps"/>
             </tree>
         </field>
     </record>
@@ -43,6 +49,8 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" archivable="false">
                 <field name="name"/>
+                <field name="active"/>
+                <field name="maps"/>
                     <templates>
                         <t t-name="kanban-box">
                         </t>
@@ -50,17 +58,6 @@
             </kanban>
         </field>
     </record>
-
-    <record id="website_leaflet_mapfeature_action" model="ir.actions.act_window">
-        <field name="name">Map Features</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">website_leaflet.mapfeature</field>
-        <field name="view_mode">tree,form,geoengine</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="website_leaflet_mapfeature_view_tree"/>
-    </record>
-
-    <menuitem name="Map Feature" id="geoengine_retail_machine_menu" action="website_leaflet_mapfeature_action" parent="website_leaflet_map_feature_menu" groups="base_geoengine.group_geoengine_user,base_geoengine.group_geoengine_admin"/>
 
     <!-- GeoEngine views -->
     <record id="website_leaflet_mapfeature_view0" model="ir.ui.view">
@@ -116,4 +113,99 @@
         <field name="view_id" ref="website_leaflet_mapfeature_view0"/>
         <field eval="1" name="overlay"/>
     </record>
+
+    <!-- Map Views -->
+
+    <record id="website_leaflet_map_view_form" model="ir.ui.view">
+        <field name="name">website_leaflet.map.view.form</field>
+        <field name="model">website_leaflet.map</field>
+        <field name="arch" type="xml">
+            <form string="Map">
+                <sheet>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                    <field name="category"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="website_leaflet_map_view_tree" model="ir.ui.view">
+        <field name="name">website_leaflet.map.view.tree</field>
+        <field name="model">website_leaflet.map</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active"/>
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="website_leaflet_map_view_kanban" model="ir.ui.view">
+        <field name="name">website_leaflet.map.view.kanban</field>
+        <field name="model">website_leaflet.map</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" archivable="false">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active"/>
+                <field name="category"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        </t>
+                    </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Category Views -->
+
+    <record id="website_leaflet_category_view_form" model="ir.ui.view">
+        <field name="name">website_leaflet.category.view.form</field>
+        <field name="model">website_leaflet.category</field>
+        <field name="arch" type="xml">
+            <form string="Category">
+                <sheet>
+                    <field name="name"/>
+                    <field name="parent"/>
+                    <field name="active"/>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="website_leaflet_category_view_tree" model="ir.ui.view">
+        <field name="name">website_leaflet.category.view.tree</field>
+        <field name="model">website_leaflet.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="website_leaflet_category_view_kanban" model="ir.ui.view">
+        <field name="name">website_leaflet.category.view.kanban</field>
+        <field name="model">website_leaflet.category</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" archivable="false">
+                <field name="name"/>
+                <field name="parent"/>
+                <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                        </t>
+                    </templates>
+            </kanban>
+        </field>
+    </record>
+
 </odoo>

@@ -30,7 +30,7 @@ class Map(models.Model):
     category = fields.Many2one(
         comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
     features = fields.Many2many(
-        comodel_name='website_leaflet.mapfeature', string="Features")
+        comodel_name='website_leaflet.mapfeature', relation='map_features_rel', string="Features")
 
 
 class MapFeature(models.Model):
@@ -46,3 +46,5 @@ class MapFeature(models.Model):
     geo_area = fields.GeoPolygon()
     category = fields.Many2one(
         comodel_name='website_leaflet.category', string="Company", ondelete='restrict')
+    maps = fields.Many2many(
+        comodel_name='website_leaflet.map', relation='map_features_rel', string="Features")
