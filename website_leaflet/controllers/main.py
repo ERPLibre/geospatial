@@ -2,6 +2,7 @@ from odoo import http
 from operator import attrgetter
 import json
 import numpy
+from pyproj import Proj, transform
 
 
 class MapFeatureController(http.Controller):
@@ -176,21 +177,21 @@ class MapFeatureController(http.Controller):
                         "type": "Point",
                         "coordinates": [
                             -73.7537526184082,
-                        45.57945957862049
-                            ]
+                            45.57945957862049
+                        ]
                     }
                 },
                 {
                     "type": "Feature",
-    "properties": {
-        "name": "Coors Field",
-        "amenity": "Baseball Stadium",
-        "popupContent": "This is where the Rockies play!"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-104.99404, 39.75621]
-    }
+                    "properties": {
+                        "name": "Coors Field",
+                        "amenity": "Baseball Stadium",
+                        "popupContent": "This is where the Rockies play!"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-104.99404, 39.75621]
+                    }
                 },
                 {
                     "type": "Feature",
@@ -300,22 +301,61 @@ class MapFeatureController(http.Controller):
     @http.route(['/map/detail/<model("website_leaflet.map"):obj>/'], type='http', auth="user", website=True,
                 methods=['POST', 'GET'], csrf=False)
     def map_detail(self, obj=None):
-        # lat = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lat")
-        # lng = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_lng")
-        # enable = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_enable")
-        # size = http.request.env['ir.config_parameter'].sudo().get_param("website_leaflet_size")
-        features = obj.features.search([])
-        to_output = []
-        coord_attr_map = {
-            "point": "geo_point.xy",
-            "line": "geo_line.xy",
-            "area": "geo_area.exterior.coords.xy",
+        name = "test"
+        lat = 45.587134
+        lng = -73.733368
+        enable = True
+        size_width = 800
+        size_height = 600
+        provider = "CartoDB"
+        zoom = 13
+        categories = {}
+        for i in http.request.env['website_leaflet.category'].search([["active", "=", True]]):
+            categories[i.id] = {
+                "name": i.name,
+                "description": i.description,
+            }
+        features = {
+            "markers": []
         }
-        for feature in features:
-            to_output.append({
-                "type": feature.type,
-                "coordinates": numpy.column_stack(
-                    attrgetter(coord_attr_map[feature.type])(feature)).tolist(),
+
+        inProj = Proj('epsg:3857')
+        outProj = Proj('epsg:4326')
+
+        for feature in obj.features.search([["type", "=", "point"], ["active", "=", True]]):
+            coord_UTM = numpy.column_stack(feature.geo_point.xy).tolist()[0]
+            coord_lat_long = transform(inProj, outProj, *coord_UTM)
+            features["markers"].append({
+                "category_id": feature.category.id,
+                "coordinates": coord_lat_long,
+                "html_popup": feature.html_text,
+                "open_popup": feature.open_popup,
             })
-        return http.Response(json.dumps(
-            to_output),content_type='application/json;charset=utf-8',status=200)
+        return json.dumps({
+            "name": name,
+            "lat": lat,
+            "lng": lng,
+            "enable": enable,
+            "size_width": size_width,
+            "size_height": size_height,
+            "zoom": zoom,
+            "provider": provider,
+            "features": features,
+            "categories": categories,
+        })
+        
+        # features = obj.features.search([])
+        # to_output = []
+        # coord_attr_map = {
+        #     "point": "geo_point.xy",
+        #     "line": "geo_line.xy",
+        #     "area": "geo_area.exterior.coords.xy",
+        # }
+        # for feature in features:
+        #     to_output.append({
+        #         "type": feature.type,
+        #         "coordinates": numpy.column_stack(
+        #             attrgetter(coord_attr_map[feature.type])(feature)).tolist(),
+        #     })
+        # return http.Response(json.dumps(
+        #     to_output),content_type='application/json;charset=utf-8',status=200)

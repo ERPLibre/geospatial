@@ -14,6 +14,8 @@
                             <field name="type"/>
                             <field name="active"/>
                             <field name="category"/>
+                            <field name="html_text"/>
+                            <field name="open_popup"/>
                             <field name="maps"/>
                         </page>
                         <page string="Point Data" attrs="{'invisible': [('type', '!=', 'point')]}">
@@ -39,6 +41,8 @@
                 <field name="name"/>
                 <field name="active"/>
                 <field name="category"/>
+                <field name="html_text"/>
+                <field name="open_popup"/>
                 <field name="maps"/>
             </tree>
         </field>
@@ -53,6 +57,8 @@
                 <field name="name"/>
                 <field name="active"/>
                 <field name="category"/>
+                <field name="html_text"/>
+                <field name="open_popup"/>
                 <field name="maps"/>
                     <templates>
                         <t t-name="kanban-box">
@@ -175,6 +181,7 @@
             <form string="Category">
                 <sheet>
                     <field name="name"/>
+                    <field name="description"/>
                     <field name="parent"/>
                     <field name="active"/>
 
@@ -189,6 +196,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="description"/>
                 <field name="parent"/>
                 <field name="active"/>
             </tree>
@@ -202,6 +210,7 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" archivable="false">
                 <field name="name"/>
+                <field name="description"/>
                 <field name="parent"/>
                 <field name="active"/>
                     <templates>

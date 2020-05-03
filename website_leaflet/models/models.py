@@ -9,6 +9,7 @@ class Category(models.Model):
 
     active = fields.Boolean(string='Active', default=True)
     name = fields.Char(string='Name', required=True)
+    description = fields.Char(string='Description')
     company_id = fields.Many2one(
         'res.company',
         string="Company",
@@ -44,6 +45,8 @@ class MapFeature(models.Model):
     type = fields.Selection(
         selection=[("point", _("Point")), ("line", _("Line")), ("area", _("Polygon"))],
         required=True, default="point")
+    html_text = fields.Html(string="Popup Text")
+    open_popup = fields.Boolean(string="Pop up opened on map", default=False)
     geo_point = fields.GeoPoint()
     geo_line = fields.GeoLine()
     geo_area = fields.GeoPolygon()
