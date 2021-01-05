@@ -23,6 +23,13 @@
         'views/website_leaflet_snippet_templates.xml',
         'views/website_leaflet_view.xml',
     ],
+
+    'external_dependencies': {
+        'python': [
+            'pyproj',
+        ],
+    },
+
     'installable': True,
     'application': True,
 
