@@ -1,0 +1,58 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="website_leaflet.list">
+      <field name="name">website_leaflet list</field>
+      <field name="model">website_leaflet.website_leaflet</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="website_leaflet.action_window">
+      <field name="name">website_leaflet window</field>
+      <field name="res_model">website_leaflet.website_leaflet</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="website_leaflet.action_server">
+      <field name="name">website_leaflet server</field>
+      <field name="model_id" ref="model_website_leaflet_website_leaflet"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+<!--    <menuitem name="website_leaflet" id="website_leaflet.menu_root"/>-->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="website_leaflet.menu_1" parent="website_leaflet.menu_root"/>
+    <menuitem name="Menu 2" id="website_leaflet.menu_2" parent="website_leaflet.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="website_leaflet.menu_1_list" parent="website_leaflet.menu_1"
+              action="website_leaflet.action_window"/>
+    <menuitem name="Server to list" id="website_leaflet" parent="website_leaflet.menu_2"
+              action="website_leaflet.action_server"/>
+    -->
+  </data>
+</odoo>
